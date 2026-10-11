@@ -1,0 +1,286 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f8f2;
+    color: #243324;
+}
+
+#hts{
+    text-align: center;
+}
+#pro{
+    text-align: center;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    width: 100%;
+    padding: 18px 7%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #3d6b35;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #444;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    color: #4f7d3d;
+}
+
+.nav-links a.logout {
+    color: #b64b4b;
+}
+
+
+/* ================= ABOUT HERO ================= */
+
+.about-hero {
+    min-height: 500px;
+    padding: 80px 10%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 60px;
+}
+
+.about-content {
+    max-width: 650px;
+}
+
+.small-title {
+    color: #6a944f;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.about-content h1 {
+    font-size: 48px;
+    line-height: 1.2;
+    color: #263c25;
+    margin-bottom: 25px;
+}
+
+.about-content h1 span {
+    color: #65934b;
+}
+
+.about-content p {
+    color: #666;
+    line-height: 1.7;
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.about-visual {
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: #dfecd6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about-icon {
+    font-size: 110px;
+}
+
+
+/* ================= PROJECT SECTION ================= */
+
+.project-section {
+    padding: 80px 8%;
+    background: white;
+}
+
+.about-cards {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.about-card {
+    width: 300px;
+    padding: 35px 25px;
+    background: #f7faf5;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.about-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card-icon {
+    font-size: 45px;
+    margin-bottom: 18px;
+}
+
+.about-card h3 {
+    color: #34552e;
+    margin-bottom: 12px;
+}
+
+.about-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+
+/* ================= TECHNOLOGY ================= */
+
+.technology {
+    padding: 80px 10%;
+}
+
+.technology-content {
+    max-width: 800px;
+    margin: auto;
+    text-align: center;
+}
+
+.technology h2 {
+    font-size: 34px;
+    color: #263c25;
+    margin-bottom: 18px;
+}
+
+.technology-content > p {
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 35px;
+}
+
+.technology-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.technology-list div {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+.technology-list strong {
+    display: block;
+    color: #34552e;
+    margin-bottom: 8px;
+}
+
+.technology-list span {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* ================= CTA ================= */
+
+.cta {
+    padding: 70px 20px;
+    text-align: center;
+    background: #e7f0df;
+}
+
+.cta h2 {
+    font-size: 32px;
+    color: #2e4c29;
+    margin-bottom: 12px;
+}
+
+.cta p {
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.primary-btn {
+    display: inline-block;
+    padding: 14px 25px;
+    background: #65934b;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    background: #4f793b;
+    transform: translateY(-2px);
+}
+
+
+/* ================= FOOTER ================= */
+
+footer {
+    padding: 25px;
+    text-align: center;
+    background: #263c25;
+    color: white;
+    font-size: 14px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 850px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .nav-links {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .about-hero {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 50px;
+    }
+
+    .about-content h1 {
+        font-size: 40px;
+    }
+
+    .technology-list {
+        grid-template-columns: 1fr;
+    }
+}

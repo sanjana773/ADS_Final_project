@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PlantCare AI - About</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/about.css') }}">
+</head>
+
+<body>
+
+<!-- Navigation Bar -->
+<nav class="navbar">
+
+    <div class="logo">
+        🌿 PLANT DISEASE DETECTION SYSTEM
+    </div>
+
+    <ul class="nav-links">
+
+        <!-- Home -->
+        <li>
+            <a href="{{ url_for('home') }}">
+                Home
+            </a>
+        </li>
+
+        <!-- Detection -->
+        <li>
+            <a href="{{ url_for('detection') }}">
+                Detection
+            </a>
+        </li>
+
+        <!-- About -->
+        <li>
+            <a href="{{ url_for('about') }}" class="active">
+                About
+            </a>
+        </li>
+
+        <!-- Logout -->
+        <li>
+            <a href="{{ url_for('logout') }}" class="logout">
+                Logout
+            </a>
+        </li>
+
+    </ul>
+
+</nav>
+
+
+<!-- About Hero -->
+<main>
+
+    <section class="about-hero">
+
+        <div class="about-content">
+
+            <p class="small-title">
+                ABOUT THE PROJECT
+            </p>
+
+            <h1>
+                Deep Learning Based Plant Disease Detection
+                <span>Detection</span>
+            </h1>
+
+            <p>
+                The Plant Disease Detection System is a Data Science project developed to identify plant diseases from images using deep learning and image classification techniques. The system provides a simple web-based interface where users can upload plant images and receive a prediction based on the trained deep learning model.
+            </p>
+
+            <p>
+                The system allows users to upload an image of a
+                plant leaf or tomato and receive a predicted
+                disease classification from a trained model.
+            </p>
+            <h1>Project Overview</h1>
+            <p>
+                Plant diseases can affect the growth, quality, and overall health of crops. Identifying diseases at an early stage can help in taking appropriate measures to protect plants. This project focuses on detecting common tomato plant diseases by analyzing visual patterns present in uploaded images.
+            </p>
+            <p>The system uses image processing and deep learning techniques to learn patterns from a collection of training images. After training, the model can analyze a new image and classify it into one of the disease or health categories it has learned.</p>
+            <p>The project includes two types of image detection. Tomato leaf images are analyzed to identify different leaf diseases, while tomato fruit images are classified as healthy or rotten. This makes the system useful for both plant disease identification and basic tomato fruit health classification.</p>
+        </div>
+
+        <div class="about-visual">
+
+            <div class="about-icon">
+                🌿
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- About Project -->
+    <section class="project-section">
+
+        <div class="section-heading">
+
+            <p id="pro">OUR PROJECT</p><br>
+
+            <h2 id="hts">
+                How the System Works
+            </h2><br><br>
+
+        </div>
+
+
+        <div class="about-cards">
+
+            <div class="about-card">
+
+                <div class="card-icon">
+                    
+                </div>
+
+                <h3>Image Based Detection</h3>
+
+                <p>
+                    Users can upload plant images through the
+                    detection interface for analysis.
+                </p>
+
+            </div>
+
+
+            <div class="about-card">
+
+                <div class="card-icon">
+                    
+                </div>
+
+                <h3>Deep Learning Model</h3>
+
+                <p>
+                    A trained deep learning model is used to
+                    classify the uploaded plant image.
+                </p>
+
+            </div>
+
+
+            <div class="about-card">
+
+                <div class="card-icon">
+                    
+                </div>
+
+                <h3>Prediction Result</h3>
+
+                <p>
+                    The system displays the predicted disease
+                    or healthy condition after image analysis.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Technology Section -->
+    <section class="technology">
+
+        <div class="technology-content">
+
+            <p class="small-title">
+            </p>
+
+            <h2>
+                Built Using Deep Learning
+            </h2>
+
+            <p>
+                This project combines image processing,
+                deep learning and a web interface to create
+                an accessible plant disease detection system.
+            </p>
+
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<!-- Footer -->
+<footer>
+
+    <p>© 2026 Plant Disease Detection System | Deep Learning Project</p>
+
+</footer>
+
+
+<script src="{{ url_for('static', filename='js/about.js') }}"></script>
+
+</body>
+
+</html>

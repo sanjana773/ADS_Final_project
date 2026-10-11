@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantCare AI - Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="logo">🌿 Plant Disease Detection</div>
+    <ul class="nav-links">
+        <li><a href="{{ url_for('home') }}" class="active">Home</a></li>
+        <li><a href="{{ url_for('detection') }}">Detection</a></li>
+        <li><a href="{{ url_for('about') }}">About</a></li>
+        <li><a href="{{ url_for('logout') }}" class="logout">Logout</a></li>
+    </ul>
+</nav>
+
+<main>
+    <section class="hero">
+        <div class="hero-content">
+            <p class="small-title">PLANT DISEASE DETECTION</p>
+            <h1>Detect Plant Diseases<br>
+                <span>Deep Learning Powered Detection</span>
+            </h1>
+            <p class="hero-description">
+                PlantCare AI is a deep learning-based system that analyzes tomato leaf and fruit images to identify common leaf diseases and classify tomatoes as healthy or rotten. Users can upload images to receive quick predictions, helping them understand plant health through image classification.
+            </p>
+            <div class="hero-buttons">
+                <a href="{{ url_for('detection') }}" class="primary-btn">Start Detection →</a>
+                <a href="{{ url_for('about') }}" class="secondary-btn">Learn More</a>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="plant-circle">🌱</div>
+            <div class="floating-card card-one">🍃 Leaf Analysis</div>
+            <div class="floating-card card-two">Disease Detection</div>
+            <div class="floating-card card-three">🍅 Tomato Detection</div>
+        </div>
+    </section>
+
+<footer>
+    <p>© 2026 Plant Disease Detection System | Deep Learning Project</p>
+</footer>
+
+<script src="{{ url_for('static', filename='js/home.js') }}"></script>
+</body>
+</html>

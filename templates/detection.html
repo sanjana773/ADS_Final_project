@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PlantCare AI - Disease Detection</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/detection.css') }}">
+
+<style>
+    .detection-container {
+        width: min(1000px, 92%);
+        margin: 0 auto;
+        padding: 35px 0 60px;
+    }
+
+    .heading {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .heading h1 {
+        color: #315b32;
+        font-size: 36px;
+        margin-bottom: 12px;
+    }
+
+    .heading p {
+        color: #667166;
+        line-height: 1.7;
+    }
+
+    .upload-card, .result-card {
+        background: white;
+        border-radius: 18px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 8px 30px rgba(30, 60, 30, 0.08);
+    }
+
+    .upload-card {
+        text-align: center;
+    }
+
+    .upload-icon {
+        font-size: 44px;
+    }
+
+    .upload-card h2, .result-card h2 {
+        color: #315b32;
+        margin: 12px 0;
+    }
+
+    .upload-card > p {
+        color: #667166;
+        line-height: 1.6;
+    }
+
+    .upload-grid, .result-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 24px;
+        margin-top: 25px;
+    }
+
+    .image-upload-card {
+        border: 2px dashed #8aaf62;
+        border-radius: 14px;
+        padding: 22px;
+        background: #f8fbf5;
+        text-align: center;
+        min-width: 0;
+    }
+
+    .upload-symbol {
+        font-size: 38px;
+    }
+
+    .image-upload-card h3 {
+        color: #315b32;
+        margin: 10px 0;
+    }
+
+    .image-upload-card p {
+        color: #667166;
+        overflow-wrap: anywhere;
+    }
+
+    .image-upload-card input[type="file"] {
+        display: block;
+        width: 100%;
+        margin: 18px 0;
+        font-size: 13px;
+    }
+
+    .image-preview {
+        display: none;
+        max-width: 100%;
+        width: 100%;
+        height: 200px;
+        object-fit: contain;
+        border-radius: 10px;
+        background: white;
+        margin-top: 12px;
+    }
+
+    .detect-both-btn {
+        border: none;
+        border-radius: 8px;
+        padding: 14px 30px;
+        background: #315b32;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        margin-top: 28px;
+    }
+
+    .detect-both-btn:hover {
+        background: #244725;
+    }
+
+    .result-heading {
+        text-align: center;
+        color: #315b32;
+        margin: 35px 0 20px;
+    }
+
+    .individual-result {
+        background: white;
+        padding: 24px;
+        border-radius: 15px;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.06);
+        overflow-wrap: anywhere;
+    }
+
+    .individual-result h3 {
+        color: #315b32;
+    }
+
+    .prediction-name {
+        font-size: 23px;
+        color: #315b32;
+        margin: 15px 0;
+    }
+
+    .result-summary {
+        line-height: 1.6;
+        color: #566656;
+    }
+
+    .confidence-track {
+        height: 9px;
+        border-radius: 10px;
+        background: #e6ecdf;
+        overflow: hidden;
+        margin: 12px 0 20px;
+    }
+
+    .confidence-fill {
+        height: 100%;
+        background: #79a33c;
+        max-width: 100%;
+    }
+
+    .care-list {
+        padding-left: 22px;
+        line-height: 1.8;
+    }
+
+    .error-message, .warning-message {
+        padding: 13px;
+        margin: 15px 0;
+        border-radius: 8px;
+        line-height: 1.5;
+    }
+
+    .error-message {
+        color: #922c26;
+        background: #fde8e7;
+    }
+
+    .warning-message {
+        color: #775500;
+        background: #fff4d6;
+    }
+
+    @media (max-width: 700px) {
+        .detection-container {
+            width: 94%;
+            padding-top: 25px;
+        }
+
+        .heading h1 {
+            font-size: 28px;
+        }
+
+        .upload-card {
+            padding: 20px;
+        }
+
+        .upload-grid, .result-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .image-upload-card, .individual-result {
+            padding: 18px;
+        }
+    }
+</style>
+
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">PlantCare <span></span></div>
+<div class="nav-links">
+    <a href="{{ url_for('home') }}">Home</a>
+    <a href="{{ url_for('about') }}">About</a>
+    <a href="{{ url_for('detection') }}" class="active">Detection</a>
+</div>
+
+<a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+
+</nav>
+
+<section class="detection-section">
+    <div class="detection-container">
+
+    <div class="heading">
+        <h1>Plant Disease Detection</h1>
+    </div>
+
+    {% if error %}
+    <div class="error-message">{{ error }}</div>
+    {% endif %}
+
+    <div class="upload-card">
+        <div class="upload-icon">🌿</div>
+        <h2>Analyze Your Tomato Plant</h2>
+        <p>Select one image or both images for analysis.</p>
+
+        <form action="{{ url_for('detection') }}"
+              method="POST"
+              enctype="multipart/form-data">
+
+            <div class="upload-grid">
+
+                <div class="image-upload-card">
+                    <div class="upload-symbol">🍃</div>
+                    <h3>Tomato Leaf</h3>
+                    <p>Detect possible leaf diseases or healthy leaves.</p>
+
+                    <input type="file"
+                           name="leaf_image"
+                           id="leaf_image"
+                           accept=".jpg,.jpeg,.png,.webp,.bmp,image/*">
+
+                    <img id="leaf-preview"
+                         class="image-preview"
+                         alt="Tomato leaf preview">
+
+                    <p id="leaf-file-name">No leaf image selected</p>
+                </div>
+
+                <div class="image-upload-card">
+                    <div class="upload-symbol">🍅</div>
+                    <h3>Tomato Fruit</h3>
+                    <p>Check whether the fruit appears healthy or rotten.</p>
+
+                    <input type="file"
+                           name="fruit_image"
+                           id="fruit_image"
+                           accept=".jpg,.jpeg,.png,.webp,.bmp,image/*">
+
+                    <img id="fruit-preview"
+                         class="image-preview"
+                         alt="Tomato fruit preview">
+
+                    <p id="fruit-file-name">No fruit image selected</p>
+                </div>
+
+            </div>
+
+            <button type="submit" class="detect-both-btn">
+                🌱 Detect Selected Images
+            </button>
+        </form>
+    </div>
+
+    {% if leaf_result or fruit_result or leaf_error or fruit_error %}
+
+    <h2 class="result-heading">Detection Results</h2>
+
+    <div class="result-grid">
+
+        {% if leaf_result %}
+        <div class="individual-result">
+            <h3>🍃 Leaf Analysis</h3>
+            <p class="result-summary">{{ leaf_result.summary }}</p>
+
+            <h2 class="prediction-name">
+                {{ leaf_result.display_name }}
+            </h2>
+
+            <p>
+                <strong>Model class:</strong>
+                {{ leaf_result.prediction }}
+            </p>
+
+            <p>
+                <strong>Condition:</strong>
+                {% if leaf_result.is_healthy %}
+                    Healthy classification
+                {% else %}
+                    Possible disease detected
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Model confidence:</strong>
+                {{ "%.2f"|format(leaf_result.confidence) }}%
+            </p>
+
+            <div class="confidence-track">
+                <div class="confidence-fill"
+                     style="width: {{ leaf_result.confidence }}%;">
+                </div>
+            </div>
+
+            {% if leaf_result.low_confidence %}
+            <div class="warning-message">
+                The model is less confident in this prediction.
+                Try a clearer image and verify the result.
+            </div>
+            {% endif %}
+
+            <h4>Suggested Care</h4>
+            <ul class="care-list">
+                {% for suggestion in leaf_result.suggestions %}
+                <li>{{ suggestion }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if leaf_error %}
+        <div class="individual-result">
+            <h3>🍃 Leaf Analysis</h3>
+            <div class="error-message">{{ leaf_error }}</div>
+        </div>
+        {% endif %}
+
+        {% if fruit_result %}
+        <div class="individual-result">
+            <h3>🍅 Fruit Analysis</h3>
+            <p class="result-summary">{{ fruit_result.summary }}</p>
+
+            <h2 class="prediction-name">
+                {{ fruit_result.display_name }}
+            </h2>
+
+            <p>
+                <strong>Model class:</strong>
+                {{ fruit_result.prediction }}
+            </p>
+
+            <p>
+                <strong>Condition:</strong>
+                {% if fruit_result.is_healthy %}
+                    Healthy classification
+                {% else %}
+                    Possible spoilage detected
+                {% endif %}
+            </p>
+
+            <p>
+                <strong>Model confidence:</strong>
+                {{ "%.2f"|format(fruit_result.confidence) }}%
+            </p>
+
+            <div class="confidence-track">
+                <div class="confidence-fill"
+                     style="width: {{ fruit_result.confidence }}%;">
+                </div>
+            </div>
+
+            {% if fruit_result.low_confidence %}
+            <div class="warning-message">
+                The model is less confident in this prediction.
+                Try a clearer image and verify the result.
+            </div>
+            {% endif %}
+
+            <h4>Suggested Care</h4>
+            <ul class="care-list">
+                {% for suggestion in fruit_result.suggestions %}
+                <li>{{ suggestion }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if fruit_error %}
+        <div class="individual-result">
+            <h3>🍅 Fruit Analysis</h3>
+            <div class="error-message">{{ fruit_error }}</div>
+        </div>
+        {% endif %}
+
+    </div>
+    {% endif %}
+
+</div>
+</section>
+
+<script>
+    function setupImagePreview(inputId, previewId, nameId, defaultText) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        const fileName = document.getElementById(nameId);
+
+        input.addEventListener("change", function () {
+            const file = this.files[0];
+
+            if (preview.dataset.previewUrl) {
+                URL.revokeObjectURL(preview.dataset.previewUrl);
+                delete preview.dataset.previewUrl;
+            }
+
+            if (!file) {
+                preview.removeAttribute("src");
+                preview.style.display = "none";
+                fileName.textContent = defaultText;
+                return;
+            }
+
+            if (!file.type.startsWith("image/")) {
+                this.value = "";
+                preview.removeAttribute("src");
+                preview.style.display = "none";
+                fileName.textContent = "Please select an image";
+                return;
+            }
+
+            const imageUrl = URL.createObjectURL(file);
+            preview.src = imageUrl;
+            preview.dataset.previewUrl = imageUrl;
+            preview.style.display = "block";
+            fileName.textContent = file.name;
+        });
+    }
+
+    setupImagePreview(
+        "leaf_image",
+        "leaf-preview",
+        "leaf-file-name",
+        "No leaf image selected"
+    );
+
+    setupImagePreview(
+        "fruit_image",
+        "fruit-preview",
+        "fruit-file-name",
+        "No fruit image selected"
+    );
+</script>
+
+</body>
+</html>

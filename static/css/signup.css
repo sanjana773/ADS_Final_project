@@ -1,0 +1,222 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+
+.background img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+/* CARD: transparent, no padding/border, clips children to rounded corners */
+.signup-container {
+  width: 900px;
+  max-width: 90%;
+  min-height: 600px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  padding: 0;
+  border: none;
+  background: transparent;          /* was white: this caused the strip */
+  border-radius: 20px;
+  overflow: hidden;
+  clip-path: inset(0 round 20px);   /* removes the black corner dots */
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.3);
+}
+
+/* GREEN SIDE: solid color, fills its half completely */
+.left-section {
+  flex: 0 0 50%;
+  margin: 0;
+  padding: 60px 45px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: rgba(48, 92, 45, 0.95);              /* solid, no transparency */
+  color: white;
+}
+
+.logo {
+  font-size: 55px;
+  margin-bottom: 20px;
+}
+
+.left-section h1 {
+  font-size: 38px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.left-section p {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* FORM SIDE: carries the white background now */
+.right-section {
+  flex: 0 0 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.signup-box {
+  width: 100%;
+  max-width: 380px;
+}
+
+.signup-box h2 {
+  text-align: center;
+  color: rgba(48, 92, 45, 0.95);
+  font-size: 30px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  text-align: center;
+  color: #777;
+  margin-bottom: 25px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: bold;
+  color: #333;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 14px;
+  outline: none;
+}
+
+.input-group input:focus {
+  border-color: rgba(48, 92, 45, 0.95);
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 7px;
+  background: rgba(48, 92, 45, 0.95);
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:hover {
+  background: rgba(48, 92, 45, 0.95);
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 20px;
+  color: #666;
+  font-size: 14px;
+}
+
+.login-link a {
+  color: rgba(48, 92, 45, 0.95);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  background: #ffebee;
+  color: #c62828;
+  text-align: center;
+  font-size: 13px;
+}
+
+.success-message {
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  background: #e8f5e9;
+  color: rgba(48, 92, 45, 0.95);
+  text-align: center;
+  font-size: 13px;
+}
+
+@media (max-width: 750px) {
+  body {
+    overflow: auto;
+  }
+
+  .signup-container {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    margin: 30px auto;
+    flex-direction: column;
+  }
+
+  .left-section {
+    flex: none;
+    width: 100%;
+    padding: 35px;
+    text-align: center;
+  }
+
+  .right-section {
+    flex: none;
+    width: 100%;
+    padding: 30px;
+  }
+}

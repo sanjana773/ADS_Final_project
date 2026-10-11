@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Plant Disease Detection - Login</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+
+<body>
+
+<div class="background">
+    <img src="{{ url_for('static', filename='img/tomato.jpg') }}"
+         alt="Tomato Plant">
+</div>
+
+
+<div class="login-container">
+
+    <!-- LEFT SECTION -->
+    <div class="left-section">
+
+        <div class="logo">
+            🌿
+        </div>
+
+        <h1>
+            Plant Disease<br>
+            Detection
+        </h1>
+
+        <p>
+            Detect and identify plant diseases
+            using deep learning technology.
+        </p>
+
+    </div>
+
+
+    <!-- RIGHT SECTION -->
+    <div class="right-section">
+
+        <div class="login-box">
+
+            <h2>Login</h2>
+
+            <p class="subtitle">
+                Sign in to continue
+            </p>
+
+
+            <!-- Flask error message -->
+            {% if error %}
+            <p class="error-message">
+                {{ error }}
+            </p>
+            {% endif %}
+
+
+            <!-- Flask success message -->
+            {% if success %}
+            <p class="success-message">
+                {{ success }}
+            </p>
+            {% endif %}
+
+
+            <form id="loginForm"
+                  method="POST"
+                  action="{{ url_for('login') }}">
+
+                <!-- EMAIL -->
+                <div class="input-group">
+
+                    <label for="username">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="username"
+                        name="username"
+                        placeholder="Enter your Gmail"
+                        required
+                        pattern="[a-zA-Z0-9._%+-]+@gmail\.com"
+                        title="Please enter a valid Gmail address, example@gmail.com">
+
+                </div>
+
+
+                <!-- PASSWORD -->
+                <div class="input-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                        minlength="6">
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- JavaScript message -->
+            <p id="message"></p>
+
+
+            <!-- SIGNUP -->
+            <p class="signup">
+                Don't have an account?
+                <a href="{{ url_for('signup') }}">
+                    Sign Up
+                </a>
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
+</body>
+</html>
